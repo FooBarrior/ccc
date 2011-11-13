@@ -102,4 +102,5 @@ typedef struct{
 #define LXR_GET_FLOAT_VAL(t) (((LXR_FloatTokenPtr)t)->value)
 
 extern LXR_TokenPtr lxr_nextToken();
-extern void lxr_initLexer(char *filename);
+extern void lxr_initLexer(FILE*);
+extern void lxr_deinitializeLexe();
