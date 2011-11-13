@@ -3,7 +3,7 @@ CC = gcc -std=gnu99 -g3
 SRC = lexer.c
 OBJS = $(SRC:%.c=.objs/%.o)
 
-T_BIN = $(SRC:%.c=%.run)
+T_BIN = $(SRC:%.c=tests/%.run)
 
 ccc: .objs/ $(OBJS)
 	$(CC) -occc $(OBJS)
@@ -17,10 +17,9 @@ ccc: .objs/ $(OBJS)
 
 test_compile: $(T_BIN)
 
-%.run: %.c
-	$(CC) -DCCC_TEST -otests/$@ $<
+tests/%.run: %.c
+	$(CC) -DCCC_TEST -o$@ $<
     
 runtests: test_compile
-	cd tests
-	sh runtests.sh
+	cd tests && sh runtests.sh $(SRC:%.c=%)
 
