@@ -20,5 +20,12 @@ for i in $@; do
             rm $j.a > /dev/null
         fi
     done
+    if [ -e $i/stresstest ]; then
+        size=`ls -lah $i/stresstest | awk '{ print $5}'`
+        echo -n "starting stresstest ( $size ).."
+        ./spawntimer ./$i.run --no-debug-print $i/stresstest > $i/stresstest.out
+        #echo "done! result is $(cat $i/stresstest.out)"
+        rm $i/stresstest.out > /dev/null
+    fi
     echo "Done testing $i"
 done
