@@ -282,7 +282,10 @@ LXR_TokenPtr lxr_nextToken(){
 				LXR_OP2('/', DIV);
 				LXR_OP2('*', MULT);
 				LXR_OP2('%', MOD);
-				case '=': t = w ? LXRE_EQ : LXRE_ASSIGN; e = w; break;
+				case '=':
+					t = w ? LXRE_EQ : LXRE_ASSIGN;
+					e = w;
+					break;
 								
 				LXR_OP('.', 0);
 				LXR_OP(',', 1);
