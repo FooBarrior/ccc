@@ -338,10 +338,14 @@ char* lxr_opTokenValues[LXR_OP_TOKEN_COUNT] = {
 	"->",
 };
 
-int lxr_runtest(char *filename, FILE *f){
+int lxr_runtest(char *filename, FILE *f, bool printDebug){
+	if(f == NULL){
+		printf("%s: no such file or directory\n", filename);
+		exit(1);
+	}
 	lxr_initLexer(f);
 	LXR_TokenPtr t = NULL;
-	while((t = lxr_nextToken()) != NULL){
+	while((t = lxr_nextToken()) != NULL) if(printDebug){
 		printf("%s:%d:%d: ", filename, t->line, t->col);
 		if(t->type < LXR_OP_TOKEN_COUNT)
 			printf("operator token | '%s'", lxr_opTokenValues[t->type]);
@@ -366,8 +370,10 @@ int lxr_runtest(char *filename, FILE *f){
 
 #ifdef CCC_TEST
 int main(int argc, char **argv){
-	for(int i = 1; i < argc; i++)
-		lxr_runtest(argv[i], fopen(argv[i], "r"));
+	for(int i = 1; i < argc; i++){
+		bool printDebug = strcmp(argv[i], "--no-debug-print");
+		lxr_runtest(argv[i], fopen(argv[i], "r"), printDebug);
+	}
 	return 0;
 }
 #endif
