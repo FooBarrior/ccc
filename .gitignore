@@ -1,3 +1,5 @@
 ccc
 tests/*.run
 .objs/*
+tests/spawntimer
+tests/*/stresstest
