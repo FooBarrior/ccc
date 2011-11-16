@@ -1,0 +1,609 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lxr_op",
+				"lxr_opTokenValues"
+			],
+			[
+				"LXR_To",
+				"LXR_TokenPtr"
+			],
+			[
+				"LXR_TokenT",
+				"LXR_TokenType"
+			],
+			[
+				"LXR_T",
+				"LXR_TokenType"
+			],
+			[
+				"LXR_FE",
+				"LXR_FEED_WHILE"
+			],
+			[
+				"initT",
+				"initToken"
+			],
+			[
+				"Int",
+				"IntToken"
+			],
+			[
+				"init",
+				"initFloatToken"
+			],
+			[
+				"isO",
+				"isOctOrHex"
+			],
+			[
+				"isHx",
+				"isHexNum"
+			],
+			[
+				"LXR_F",
+				"LXR_FEED_WHILE"
+			],
+			[
+				"res",
+				"result"
+			],
+			[
+				"LXR_V",
+				"LXR_ValueToken"
+			],
+			[
+				"LXR_TO",
+				"LXR_TokenType"
+			],
+			[
+				"get_c",
+				"get_context_data"
+			],
+			[
+				"Re",
+				"RegexValidator"
+			],
+			[
+				"Cate",
+				"CategoryForm"
+			],
+			[
+				"Per",
+				"Permission"
+			],
+			[
+				"Pro",
+				"Product"
+			],
+			[
+				"M",
+				"ManyToManyField"
+			],
+			[
+				"ob",
+				"objects"
+			],
+			[
+				"Comm",
+				"Comment"
+			],
+			[
+				"Tex",
+				"TextField"
+			],
+			[
+				"For",
+				"ForeignKey"
+			],
+			[
+				"EN",
+				"ENotDereferenceable"
+			],
+			[
+				"IT",
+				"IT_NORMAL"
+			],
+			[
+				"Stor",
+				"Storage"
+			],
+			[
+				"Storage",
+				"StorageTrait"
+			],
+			[
+				"chi",
+				"childLen"
+			],
+			[
+				"chu",
+				"chunk"
+			],
+			[
+				"RELE",
+				"RELEASEBUF"
+			],
+			[
+				"Tr",
+				"Trait"
+			],
+			[
+				"RE",
+				"RELEASEVAR"
+			],
+			[
+				"th",
+				"throw"
+			],
+			[
+				"REL",
+				"RELEASEVAR"
+			],
+			[
+				"Ke",
+				"KeyVal"
+			],
+			[
+				"sta",
+				"start"
+			],
+			[
+				"Item",
+				"ItemType"
+			],
+			[
+				"va",
+				"value_type"
+			],
+			[
+				"ST",
+				"STLTrait"
+			],
+			[
+				"HashM",
+				"HashMap"
+			],
+			[
+				"buc",
+				"bucketSize"
+			],
+			[
+				"bu",
+				"bucketSize"
+			],
+			[
+				"HashF",
+				"stdhashf"
+			],
+			[
+				"HO",
+				"HOMEWORKS_STDHASHF_STRING"
+			],
+			[
+				"buck",
+				"bucketSize"
+			],
+			[
+				"bucketS",
+				"bucketSize"
+			],
+			[
+				"E",
+				"EKeyNotFound"
+			],
+			[
+				"val",
+				"valFromNode"
+			],
+			[
+				"low",
+				"tolower"
+			],
+			[
+				"LXR_A",
+				"LXR_APPEND_TO_BUFF"
+			],
+			[
+				"isx",
+				"isxdigit"
+			],
+			[
+				"isa",
+				"isalpha"
+			],
+			[
+				"MAX_S",
+				"MAX_STR_WIDTH"
+			],
+			[
+				"lexer",
+				"lexer"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "spawntimer.c",
+			"settings":
+			{
+				"buffer_size": 683,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/root/ppp/compiler/lexer.c",
+			"settings":
+			{
+				"buffer_size": 9143,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Makefile/Make.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 404.0
+	},
+	"console":
+	{
+		"height": 129.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/root/ppp/compiler/lexer.c",
+		"/root/ppp/compiler/lexer.h",
+		"/root/ppp/compiler/ccc.c",
+		"/root/ppp/compiler/lx.h",
+		"/root/ppp/compiler/tests/test1.c",
+		"/root/ppp/compiler/p1.sublime-project",
+		"/root/ppp/compiler/tests/test.c",
+		"/root/ppp/compiler/test1.c",
+		"/root/ppp/compiler/[Finished]/root/ppp/compiler/lexer.c",
+		"/root/ppp/compiler/lxrctype.h",
+		"/root/ppp/compiler/ctype.h",
+		"/usr/include/stdlib.h",
+		"/usr/include/ctype.h",
+		"/usr/include/features.h",
+		"/usr/include/bits/types.h",
+		"/usr/include/bits/wordsize.h",
+		"/root/linux-kerner/tools/perf/util/include/linux/ctype.h",
+		"/root/linux-kerner/include/linux/ctype.h",
+		"/root/linux-kerner/arch/x86/boot/ctype.h",
+		"/data/pile/Programs/_Developing/web/Perl/strawberry/c/include/c++/4.4.3/tr1/ctype.h",
+		"/data/pile/Programs/_Developing/web/Perl/strawberry/c/i686-w64-mingw32/include/ctype.h",
+		"/tmp/ctype.h",
+		"/usr/include/c++/4.6.2/x86_64-unknown-linux-gnu/bits/ctype_inline.h",
+		"/usr/include/c++/4.6.2/cctype",
+		"/usr/include/clang-c/Index.h",
+		"/root/ppp/compiler/test.c",
+		"/usr/lib/python2.7/site-packages/django/views/generic/base.py",
+		"/root/ppp/django-shop/shop/templates/goods/tree.html",
+		"/root/ppp/django-shop/shop/goods/models.py",
+		"/root/ppp/django-shop/shop/goods/views.py",
+		"/root/ppp/django-shop/shop/urls.py",
+		"/root/ppp/django-shop/shop/goods/urls.py",
+		"/root/ppp/django-shop/shop/templates/goods/categories.html",
+		"/root/ppp/django-shop/shop/templates/goods/nav_base.html",
+		"/root/ppp/django-shop/shop/templates/goods/product.html",
+		"/root/ppp/django-shop/shop/users/admin.py",
+		"/usr/lib/python2.7/site-packages/django/core/validators.py",
+		"/root/ppp/django-shop/shop/users/forms.py",
+		"/usr/lib/python2.7/site-packages/django/forms/fields.py",
+		"/root/ppp/django-shop/shop/cart/models.py",
+		"/usr/lib/python2.7/site-packages/django/db/models/fields/__init__.py",
+		"/usr/lib/python2.7/site-packages/django/db/models/fields/proxy.py",
+		"/usr/lib/python2.7/site-packages/django/db/models/fields/related.py",
+		"/usr/lib/python2.7/site-packages/django/db/models/fields/subclassing.py",
+		"/usr/lib/python2.7/site-packages/django/db/models/__init__.py",
+		"/usr/lib/python2.7/site-packages/django/db/models/fields/files.py",
+		"/usr/lib/python2.7/site-packages/django/forms/models.py",
+		"/usr/lib/python2.7/site-packages/django/contrib/auth/models.py",
+		"/root/ppp/django-shop/shop/users/models.py",
+		"/root/ppp/django-shop/shop/cart/views.py",
+		"/root/ppp/django-shop/shop/settings.py",
+		"/root/ppp/django-shop/shop/static/css/shop.css",
+		"/root/ppp/contesting/acm/school_2011/f.cpp",
+		"/root/ppp/contesting/codeforces/91/c.cpp",
+		"/root/.config/sublime-text-2/Packages/User/run_nemiver.py",
+		"/root/ppp/contesting/codeforces/91/a.cpp",
+		"/root/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/root/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/root/.config/sublime-text-2/Packages/User/hw.py",
+		"/usr/lib/python2.7/site-packages/django/views/generic/detail.py",
+		"/root/ppp/django-shop/shop/main/class_decorators.py",
+		"/usr/lib/python2.7/site-packages/django/views/generic/edit.py",
+		"/usr/lib/python2.7/site-packages/django/views/generic/create_update.py",
+		"/root/.cache/.fr-UFgDr5/spir.cpp",
+		"/root/.cache/.fr-QvO1Yw/e_fast.dpr",
+		"/etc/httpd/conf/httpd.conf",
+		"/etc/httpd/conf/extra/httpd-cgit.conf",
+		"/etc/httpd/.htaccess",
+		"/etc/httpd/logs/access_log",
+		"/etc/httpd/logs/access.log",
+		"/etc/httpd/code/dispatcher.rb",
+		"/media/D628C8E028C8C12B/web3/WebServer/usr/local/apache/conf/httpd.conf",
+		"/root/files/hash/stdhashf/string.h",
+		"/root/files/hash/hash.h",
+		"/root/files/hash/hash.cpp",
+		"/root/files/trie/trie.cpp",
+		"/root/files/trie/trie.h",
+		"/usr/include/c++/4.6.1/bits/stl_vector.h",
+		"/usr/include/c++/4.6.1/bits/stl_iterator_base_funcs.h",
+		"/usr/include/c++/4.6.1/vector",
+		"/data/pile/Телефонный",
+		"/root/справочник",
+		"/root/2009/Music/Doro/1995",
+		"/root/2009/Music/Doro/-",
+		"/root/A",
+		"/root/Whiter",
+		"/root/Shade",
+		"/root/Of",
+		"/root/Pale/03",
+		"/root/Pale/-",
+		"/root/Unholy",
+		"/root/Love.txt",
+		"/root/files/BOR2/BOR/trie.h",
+		"/root/files/trie/m&m.txt",
+		"/root/files/BOR2/BOR/test.cpp",
+		"/root/files/prefix_tree/basic_prefix_tree.cpp",
+		"/root/files/prefix_tree/basic_prefix_tree.h",
+		"/root/.config/sublime-text-2/Packages/Default/Base File.sublime-settings",
+		"/root/files/trie/a.cpp",
+		"/root/.gvfs/users",
+		"/root/on",
+		"/root/tyvin_pc_home/TyVin/Documents/Visual",
+		"/root/Studio",
+		"/root/2008/Projects/OpenCup/16.10.2011/A/A/a.cpp",
+		"/root/ppp/opencup/a.cpp",
+		"/root/.gvfs/c$",
+		"/root/tyvin_pc_home/asd.txt",
+		"/root/.config/sublime-text-2/Packages/User/cpp.sublime-build",
+		"/root/files/hash/stdhashf/map.h",
+		"/root/files/hash.cpp",
+		"/usr/include/c++/4.6.1/cwchar",
+		"/root/files/[Finished]/root/files/hash.cpp",
+		"/media/FA28A6B828A672F5/Users/TyVin/Documents/NetBeansProjects/test1/main.cpp",
+		"/root/.cache/.fr-X9rqlb/yaourt-git/yaourt.install",
+		"/root/ppp/django-shop/shop/users/__init__.py",
+		"/root/.config/sublime-text-2/Packages/User/cppp.sublime-build",
+		"/root/.config/sublime-text-2/Packages/User/Base",
+		"/root/.config/sublime-text-2/Packages/User/Default",
+		"/root/(Windows).sublime-keymap",
+		"/root/File.sublime-settings",
+		"/root/.config/sublime-text-2/Packages/User/Global.sublime-settings",
+		"/root/(Linux).sublime-keymap",
+		"/root/ppp/compiler/[Finished]/root/ppp/compiler/lexer.h",
+		"/root/ppp/compiler/lexer.h:2",
+		"/root/ppp/compiler/",
+		"/root/.config/sublime-text-2/Packages/User/C.sublime-build",
+		"/root/debug.lp",
+		"/root/.ddd/init"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"n",
+			"\\t*case ('.'):\\s*\\n?",
+			"\\t*case '(.)':\\n?",
+			"case '(.)':\\n?",
+			"(\\w+) = '.'",
+			"c == '(.)' \\|\\|",
+			"c == '.' ||",
+			"c == '(.)' \\|\\|",
+			"c == '(.)' ||",
+			"c == '.' ||",
+			"c \\=\\= \\'(.)\\' \\|\\|",
+			"c \\=\\= \\'(\\w)\\' \\|\\|",
+			"c == \\'(\\w)\\' \\|\\|",
+			"c == '(\\w)' \\|\\|",
+			"c == '\\w' \\|\\|",
+			"c == \\'\\w\\' \\|\\|",
+			"^c == '\\w' \\|\\|$",
+			"$c == '\\w' \\|\\|^",
+			"$c == '\\w' ||^",
+			"^c == '\\w' ||$",
+			"c == '\\w' ||",
+			"(\\w*)",
+			"$(\\w*)^",
+			"isnum",
+			"atoi",
+			"LXR_VarToken",
+			"LXR_ValueToken",
+			"() ",
+			"Slu",
+			"Slug",
+			"SlugF",
+			"ModelChoiceField",
+			"        ",
+			"\\t",
+			";",
+			"f",
+			"chunk",
+			"RELEASEMEM",
+			"FREEMEM",
+			"lalala",
+			"[bucketSize]",
+			"bucketsize",
+			"LXR_UNGETC",
+			"LXR_READ_CHAR",
+			"if"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"LXR_OP(\\1, );\\n",
+			"\"\\1\",",
+			"\\1",
+			"case '\\1':",
+			"case \\1:",
+			"static \\1 {\\n}",
+			"isdigit",
+			"LXR_StrToken",
+			"LXR_VarToken",
+			"    ",
+			"RELEASEVAR",
+			"RELEASEMEM",
+			"LXR_GETCHAR"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "spawntimer.c",
+					"settings":
+					{
+						"buffer_size": 683,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								117,
+								117
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/root/ppp/compiler/lexer.c",
+					"settings":
+					{
+						"buffer_size": 9143,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9044,
+								9060
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5519.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
