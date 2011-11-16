@@ -20,22 +20,19 @@ Lexer lexer;
 char lxr_buff[LXR_MAX_STR_WIDTH];
 char *buff = lxr_buff;
 
-#define LXR_EORROR_DUNNO "Invalid token"
-
-#define LXR_THROW_ERROR_FMT(fmt, ...) { \
-		sprintf(buff, fmt, __VA_ARGS__); \
-		return newErrorToken(); \
-	}
-
-#define LXR_THROW_ERROR_FMT_EXPECT(expect, but) \
-	LXR_THROW_ERROR_FMT("After %s: %s expected, but %c found", buff, expect, but)
-
 #define LXR_GETCHAR (lexer.col++, getc(lexer.f))
 #define LXR_UNGETC(c) (ungetc(c, lexer.f), lexer.col--)
 
 #define LXR_FEED(c, len) (buff[len++] = c, c = LXR_GETCHAR)
 #define LXR_FEED_WHILE(c, cond, len) while(cond)LXR_FEED(c, len)
 #define LXR_FEED_IF(c, cond, len) ((cond) ? (LXR_FEED(c, len), true) : false)
+
+#define LXR_THROW_ERROR_FMT(fmt, ...) { \
+		sprintf(buff, fmt, __VA_ARGS__); \
+		lexer.last = LXR_GETCHAR; \
+		return newErrorToken(); \
+	}
+	
 
 inline static void provokeLineFeed();
 static TokenPtr readWord();
@@ -55,6 +52,13 @@ static TokenPtr readLogicalOp();
 static TokenPtr readEq();
 
 static bool missComments();
+
+static TokenPtr throwErrorFmtExpect(char expect[], char but, int len){
+	char p[len+1];
+	memcpy(p, buff, len);
+	p[len] = 0;
+	LXR_THROW_ERROR_FMT("After %s: %s expected, but %c found", p, expect, but)
+}
 
 void provokeLineFeed(){
 	lexer.str++;
@@ -86,8 +90,10 @@ TokenPtr initIntToken(IntTokenPtr tok, int len){
 		start++;
 	}
 	unsigned result = 0;
-	for(int i = start; i < len; i++)
-		result *= mult += xToInt(proto[i]);
+	for(int i = start; i < len; i++){
+		result *= mult;
+		result += xToInt(proto[i]);
+	}
 	tok->value = result;
 	return (TokenPtr)tok;
 }
@@ -129,8 +135,10 @@ TokenPtr newErrorToken(){
 	return initStrToken(NEW(StrToken), LXRE_TOKEN_INVALID, strlen(buff));
 }
 
+#define LXR_THROW_ERROR_FMT_EXPECT(expect, but) return throwErrorFmtExpect(expect, but, len);
+
 TokenPtr readNum(char c){
-	int len = 1;
+	int len = c != '.';
 	TokenPtr tok = NULL;
 	bool isHexNum = c == '0' && lexer.last == 'x';
 	buff[0] = c;
@@ -142,6 +150,8 @@ TokenPtr readNum(char c){
 		buff[1] = 'x';
 		len++;
 		c = LXR_GETCHAR;
+		if(!isxdigit(c) && c != '.')
+			LXR_THROW_ERROR_FMT_EXPECT("hex digit or '.'", c)
 		LXR_FEED_WHILE(c, isxdigit(c), len);
 		if(LXR_FEED_IF(c, c == '.', len)){
 			if(!isxdigit(c))
@@ -171,7 +181,7 @@ TokenPtr readNum(char c){
 		if(isdigit(c))
 			LXR_THROW_ERROR_FMT_EXPECT("octal digit", c);
 		tok = initIntToken(NEW(IntToken), len);
-	} else if(!isalpha(lexer.last)){
+	} else if(!isalpha(lexer.last) || lexer.last == 'e'){
 		if(c != '.'){
 			c = lexer.last;
 			LXR_FEED_WHILE(c, isdigit(c), len);
@@ -181,6 +191,7 @@ TokenPtr readNum(char c){
 				LXR_FEED_WHILE(c, isdigit(c), len);
 			}
 			if(LXR_FEED_IF(c, tolower(c) == 'e', len)){
+				LXR_FEED_IF(c, isSign(c), len);
 				if(!isdigit(c))
 					LXR_THROW_ERROR_FMT_EXPECT("digit or e", c);
 
@@ -192,6 +203,7 @@ TokenPtr readNum(char c){
 		}
 	} else
 		LXR_THROW_ERROR_FMT_EXPECT("digit or e", c);
+	lexer.last = c;
 	return tok;
 }
 
@@ -206,16 +218,21 @@ TokenPtr readId(){
 bool missComments(){
 	while(lexer.last == '/'){
 		char c = LXR_GETCHAR;
-
 		switch(c){
 			case '*':
-				while(LXR_GETCHAR != '*' && LXR_GETCHAR != '/')
-					;
+				lexer.last = LXR_GETCHAR;
+				while(1){
+					c = lexer.last;
+					lexer.last = LXR_GETCHAR;
+					if(c == '*' && lexer.last == '/') break;
+					if(lexer.last == EOF) return true;
+				}
 				lexer.last = LXR_GETCHAR;
 				return true;
 
 			case '/':
 				fgets(buff, LXR_MAX_STR_WIDTH, lexer.f);
+				provokeLineFeed();
 				lexer.last = LXR_GETCHAR;
 				return true;
 
@@ -357,10 +374,10 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 				printf("int | '%s' | %d", LXR_GETBUF(t), LXR_GET_INT_VAL(t));
 				break;
 			case LXRE_FLOAT_CONST:
-				printf("float | '%s' | %f", LXR_GETBUF(t), LXR_GET_FLOAT_VAL(t));
+				printf("float | '%s' | %.12f", LXR_GETBUF(t), LXR_GET_FLOAT_VAL(t));
 				break;
-			default:
-				printf("Some invalid token");
+			case LXRE_TOKEN_INVALID:
+				printf("Invalid token | %s", LXR_GETBUF(t));
 		}
 		printf("\n");
 	}
@@ -372,6 +389,7 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 int main(int argc, char **argv){
 	for(int i = 1; i < argc; i++){
 		bool printDebug = strcmp(argv[i], "--no-debug-print");
+		if(!printDebug) i++;
 		lxr_runtest(argv[i], fopen(argv[i], "r"), printDebug);
 	}
 	return 0;
