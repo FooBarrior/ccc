@@ -319,7 +319,7 @@ LXR_TokenPtr lxr_nextToken(){
 				LXR_OP('?', 11);
 
 				default:
-					LXR_THROW_ERROR_FMT("Unrecognized symbol %c", c);
+					LXR_THROW_ERROR_FMT("Unrecognized symbol '%c'", c);
 		}
 		if(e){
 			lexer.last = LXR_GETCHAR;
