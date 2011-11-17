@@ -13,59 +13,74 @@ typedef struct{
 } Lexer, *LexerPtr;
 
 typedef enum LXR_TokenType{
+	LXRE_POSTFIX_OPS_START,
 
-	LXRE_DOT,
-	LXRE_COMMA,
-	LXRE_NOT,
-	LXRE_LEFT_CURLY_BRACKET,
-	LXRE_RIGHT_CURLY_BRACKET,
-	LXRE_LEFT_SQUARE_BRACKET,
-	LXRE_RIGHT_SQUARE_BRACKET,
-	LXRE_LEFT_ROUND_BRACKET,
-	LXRE_RIGHT_ROUND_BRACKET,
-	LXRE_SEMICOLON,
-	LXRE_TILDA,
-	LXRE_COLON,
-	LXRE_QUESTION,
+	/* (  */ LXRE_LEFT_SQUARE_BRACKET = LXRE_POSTFIX_OPS_START,
+	/* [  */ LXRE_LEFT_ROUND_BRACKET,
 
-	LXRE_ADD,
-	LXRE_SUB,
-	LXRE_ASSIGN,
-	LXRE_LT,
-	LXRE_GT,
-	LXRE_AND,
-	LXRE_OR,
-	LXRE_XOR,
-	LXRE_DIV,
-	LXRE_MULT,
-	LXRE_MOD,
+	LXRE_PREFIX_OPS_START,
 
-	LXRE_ADD_ASSIGN,
-	LXRE_SUB_ASSIGN,
-	LXRE_INCREASE,
-	LXRE_DECREASE,
+	/* ++ */ LXRE_INCREASE = LXRE_PREFIX_OPS_START,
+	/* -- */ LXRE_DECREASE,
 
-	LXRE_AND_ASSIGN,
-	LXRE_OR_ASSIGN,
-	LXRE_XOR_ASSIGN,
-	LXRE_LOGICAL_AND,
-	LXRE_LOGICAL_OR,
-	LXRE_LOGICAL_XOR,
+	LXRE_POSTFIX_OPS_END = LXRE_INCREASE,
 
-	LXRE_EQ,
-	LXRE_LT_EQUAL,
-	LXRE_GT_EQUAL,
-	LXRE_SHL,
-	LXRE_SHR,
-	LXRE_SHL_ASSIGN,
-	LXRE_SHR_ASSIGN,
+	/* !  */ LXRE_NOT,
+	/* ~  */ LXRE_TILDA,
 
-	LXRE_DIV_ASSIGN,
-	LXRE_MULT_ASSIGN,
-	LXRE_MOD_ASSIGN,
+	LXRE_BINARY_OPS_SRART,
 
-	LXRE_ARROW,
-	LXRE_ELLIPSIS,
+	/* &  */ LXRE_AND = LXRE_BINARY_OPS_SRART,
+	/* +  */ LXRE_ADD,
+	/* -  */ LXRE_SUB,
+	/* *  */ LXRE_MULT,
+
+	LXRE_PREFIX_OPS_END = LXRE_MULT,
+
+	/* |  */ LXRE_OR,
+	/* ^  */ LXRE_XOR,
+	/* /  */ LXRE_DIV,
+	/* %  */ LXRE_MOD,
+
+	/* && */ LXRE_LOGICAL_AND,
+	/* || */ LXRE_LOGICAL_OR,
+	/* ^^ */ LXRE_LOGICAL_XOR,
+
+	/* <  */ LXRE_LT,
+	/* >  */ LXRE_GT,
+	/* <= */ LXRE_LT_EQUAL,
+	/* >= */ LXRE_GT_EQUAL,
+	/* << */ LXRE_SHL,
+	/* >> */ LXRE_SHR,
+	/* == */ LXRE_EQ,
+	/* ,  */ LXRE_COMMA,
+
+	/* =  */ LXRE_ASSIGN,
+	/* += */ LXRE_ADD_ASSIGN,
+	/* -= */ LXRE_SUB_ASSIGN,
+	/* /= */ LXRE_DIV_ASSIGN,
+	/* *= */ LXRE_MULT_ASSIGN,
+	/* %= */ LXRE_MOD_ASSIGN,
+	/* &= */ LXRE_AND_ASSIGN,
+	/* |= */ LXRE_OR_ASSIGN,
+	/* ^= */ LXRE_XOR_ASSIGN,
+	/* <<= */ LXRE_SHL_ASSIGN,
+	/* >>= */ LXRE_SHR_ASSIGN,
+
+	/* -> */ LXRE_ARROW,
+	/* .  */ LXRE_DOT,
+
+	LXRE_BINARY_OPS_END = LXRE_DOT,
+
+	/* ... */ LXRE_ELLIPSIS,
+	/* ; */ LXRE_SEMICOLON,
+	/* ? */ LXRE_QUESTION,
+	/* : */ LXRE_COLON,
+
+	/* { */ LXRE_LEFT_CURLY_BRACKET,
+	/* } */ LXRE_RIGHT_CURLY_BRACKET,
+	/* ] */ LXRE_RIGHT_SQUARE_BRACKET,
+	/* ) */ LXRE_RIGHT_ROUND_BRACKET,
 
 	LXRE_FLOAT_CONST,
 	LXRE_INT_CONST,
@@ -75,7 +90,9 @@ typedef enum LXR_TokenType{
 	
 } LXR_TokenType;
 
-#define LXR_OP_TOKEN_COUNT 45
+#define LXR_OP_TOKEN_COUNT 46
+#define LXR_IS_IN_OP_CLASS(t, OP_CLASS) \
+	(t >= LXRE_#OP_CLASS#_START && t <= LXRE_#OPCLASS#_END)
 
 typedef struct{
 	LXR_TokenType type;
@@ -104,4 +121,4 @@ typedef struct{
 
 extern LXR_TokenPtr lxr_nextToken();
 extern void lxr_initLexer(FILE*);
-extern void lxr_deinitializeLexe();
+extern void lxr_deinitializeLexer();

@@ -267,7 +267,7 @@ LXR_TokenPtr lxr_nextToken(){
 			if(lexer.last == '.'){
 				lexer.last = LXR_GETCHAR;
 				if(lexer.last != '.')
-					LXR_THROW_ERROR_FMT("Unrecognized token '..'. Did you mean '...'?")
+					LXR_THROW_ERROR_FMT("Unrecognized token '..'. Did you mean '...'?%c", 0)
 				lexer.last = LXR_GETCHAR;
 				return initToken(NEW(Token), LXRE_ELLIPSIS);
 			}
@@ -353,13 +353,13 @@ void lxr_deinitializeLexer(){
 }
 
 char* lxr_opTokenValues[LXR_OP_TOKEN_COUNT] = {
-	".", ",", "!","{", "}", "[","]", "(", ")",";", "~", ":", "?",
-	"+", "-", "=", "<", ">", "&", "|", "^", "*", "/", "%",
-	"+=", "-=", "++", "--",
-	"&=", "|=", "^=", "&&", "||", "^^",
-	"==", "<=", ">=", "<<", ">>", "<<=", ">>=",
-	"/=", "*=", "%=",
-	"->",
+	"(", "[", "++", "--", "!", "~", "&", "+", "-", "*",
+	"|", "^", "/", "%", "&&", "||", "^^",
+	"<", ">", "<=", ">=", "<<", ">>", "==", ",",
+	"=", "+=", "-=", "/=", "*=", "%=", "&=", "|=", "^=",
+	"<<=", ">>=",
+	"->", ".", "...", ";", "?", ":",
+	"{", "}", "]", ")",
 };
 
 int lxr_runtest(char *filename, FILE *f, bool printDebug){
