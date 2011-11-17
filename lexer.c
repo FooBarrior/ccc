@@ -264,7 +264,14 @@ LXR_TokenPtr lxr_nextToken(){
 	if(isdigit(c) || c == '.'){
 		lexer.last = tolower(LXR_GETCHAR);
 		if(c == '.' && !isdigit(lexer.last))
-			return initToken(NEW(Token), LXRE_DOT);
+			if(lexer.last == '.'){
+				lexer.last = LXR_GETCHAR;
+				if(lexer.last != '.')
+					LXR_THROW_ERROR_FMT("Unrecognized token '..'. Did you mean '...'?")
+				lexer.last = LXR_GETCHAR;
+				return initToken(NEW(Token), LXRE_ELLIPSIS);
+			}
+			else return initToken(NEW(Token), LXRE_DOT);
 		return readNum(c);
 	} 
 	else if(isIdNondigit(c)) return readId();
