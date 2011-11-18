@@ -1,4 +1,4 @@
-PARAMS = -g3
+PARAMS = -g3 -Wall
 CC = gcc -std=gnu99 $(PARAMS)
 
 SRC_WITH_HEADERS = lexer.c
