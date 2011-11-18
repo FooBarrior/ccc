@@ -189,7 +189,7 @@ TokenPtr readNum(char c){
 			if(LXR_FEED_IF(c, tolower(c) == 'e', len)){
 				LXR_FEED_IF(c, isSign(c), len);
 				if(!isdigit(c))
-					LXR_THROW_ERROR_FMT_EXPECT("digit or e", c);
+					LXR_THROW_ERROR_FMT_EXPECT("digit", c);
 
 				LXR_FEED_WHILE(c, isdigit(c), len);
 			}
@@ -268,6 +268,7 @@ LXR_TokenPtr lxr_nextToken(){
 				return initToken(NEW(Token), LXRE_ELLIPSIS);
 			}
 			else return initToken(NEW(Token), LXRE_DOT);
+		}
 		return readNum(c);
 	} 
 	else if(isIdNondigit(c)) return readId();
