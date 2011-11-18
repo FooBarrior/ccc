@@ -1,14 +1,16 @@
 PARAMS = -g3
 CC = gcc -std=gnu99 $(PARAMS)
 
-SRC = lexer.c
+SRC_WITH_HEADERS = lexer.c
+SRC = $(SRC_WITH_HEADERS)
+HEADERS = $(SRC_WITH_HEADERS:%.c=%.h)
 OBJS = $(SRC:%.c=.objs/%.o)
 
 T_BIN = $(SRC:%.c=tests/%.run)
 
 all: ccc test_compile
 
-ccc: ccc.c $(OBJS)
+ccc: ccc.c $(OBJS) $(HEADERS)
 	$(CC) -occc $< $(OBJS)
 
 .objs/:
