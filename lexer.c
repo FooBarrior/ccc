@@ -258,7 +258,7 @@ LXR_TokenPtr lxr_nextToken(){
 
 	if(isdigit(c) || c == '.'){
 		lexer.last = tolower(LXR_GETCHAR);
-		if(c == '.' && !isdigit(lexer.last))
+		if(c == '.' && !isdigit(lexer.last)){
 			if(lexer.last == '.'){
 				lexer.last = LXR_GETCHAR;
 				if(lexer.last != '.')
