@@ -308,19 +308,19 @@ LXR_TokenPtr lxr_nextToken(){
 					e = w;
 					break;
 								
-				LXR_OP('.', 0);
-				LXR_OP(',', 1);
-				LXR_OP('!', 2);
-				LXR_OP('{', 3);
-				LXR_OP('}', 4);
-				LXR_OP('[', 5);
-				LXR_OP(']', 6);
-				LXR_OP('(', 7);
-				LXR_OP(')', 8);
-				LXR_OP(';', 9);
-				LXR_OP('~', 10);
-				LXR_OP(':', 12);
-				LXR_OP('?', 11);
+				LXR_OP('.', LXRE_DOT);
+				LXR_OP(',', LXRE_COMMA);
+				LXR_OP('!', LXRE_NOT);
+				LXR_OP('{', LXRE_LEFT_CURLY_BRACKET);
+				LXR_OP('}', LXRE_RIGHT_CURLY_BRACKET);
+				LXR_OP('[', LXRE_LEFT_SQUARE_BRACKET);
+				LXR_OP(']', LXRE_RIGHT_SQUARE_BRACKET);
+				LXR_OP('(', LXRE_LEFT_ROUND_BRACKET);
+				LXR_OP(')', LXRE_RIGHT_ROUND_BRACKET);
+				LXR_OP(';', LXRE_SEMICOLON);
+				LXR_OP('~', LXRE_TILDA);
+				LXR_OP(':', LXRE_COLON);
+				LXR_OP('?', LXRE_QUESTION);
 
 				default:
 					LXR_THROW_ERROR_FMT("Unrecognized symbol '%c'", c);
