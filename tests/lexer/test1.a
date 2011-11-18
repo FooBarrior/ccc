@@ -29,7 +29,7 @@ lexer/test1.t:3:17: identifier | 'malloc'
 lexer/test1.t:3:23: operator token | '('
 lexer/test1.t:3:24: identifier | 'len'
 lexer/test1.t:3:28: operator token | '+'
-lexer/test1.t:3:30: int | '1' | 0
+lexer/test1.t:3:30: int | '1' | 1
 lexer/test1.t:3:31: operator token | ')'
 lexer/test1.t:3:32: operator token | ';'
 lexer/test1.t:4:5: identifier | 'for'
