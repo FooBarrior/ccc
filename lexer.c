@@ -181,7 +181,7 @@ TokenPtr readNum(char c){
 		if(c != '.'){
 			c = lexer.last;
 			LXR_FEED_WHILE(c, isdigit(c), len);
-		}
+		} else LXR_UNGETC(lexer.last);
 		if(c == '.' || tolower(c) == 'e'){
 			if(LXR_FEED_IF(c, c == '.', len)){
 				LXR_FEED_WHILE(c, isdigit(c), len);
