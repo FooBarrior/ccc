@@ -1,0 +1,6 @@
+lexer/idents.t:1:1: identifier | 'a'
+lexer/idents.t:2:1: identifier | 'az'
+lexer/idents.t:3:1: identifier | 'a_'
+lexer/idents.t:4:1: identifier | '_ew'
+lexer/idents.t:5:1: identifier | '_5'
+lexer/idents.t:6:1: identifier | 'aZzs_1_'

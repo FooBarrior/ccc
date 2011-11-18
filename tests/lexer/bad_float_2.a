@@ -1,0 +1,2 @@
+lexer/bad_float_2.t:1:1: operator token | '.'
+lexer/bad_float_2.t:1:2: identifier | 'e'

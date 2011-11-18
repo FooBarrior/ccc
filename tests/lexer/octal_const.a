@@ -1,0 +1,5 @@
+lexer/octal_const.t:1:1: int | '0' | 0
+lexer/octal_const.t:2:1: int | '00' | 0
+lexer/octal_const.t:3:1: int | '0' | 0
+lexer/octal_const.t:4:1: int | '077' | 63
+lexer/octal_const.t:5:1: int | '034554321' | 7526609

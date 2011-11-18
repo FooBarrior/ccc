@@ -1,0 +1,7 @@
+lexer/dec_const.t:1:1: int | '0' | 0
+lexer/dec_const.t:2:1: int | '1' | 1
+lexer/dec_const.t:3:1: int | '10' | 10
+lexer/dec_const.t:4:1: int | '999' | 999
+lexer/dec_const.t:5:1: int | '7878' | 7878
+lexer/dec_const.t:6:1: int | '2147483647' | 2147483647
+lexer/dec_const.t:7:1: int | '2147483648' | -2147483648

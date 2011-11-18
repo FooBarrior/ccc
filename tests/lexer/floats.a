@@ -1,0 +1,10 @@
+lexer/floats.t:1:1: float | '1.1' | 1.100000000000
+lexer/floats.t:2:1: float | '.1' | 0.100000000000
+lexer/floats.t:3:1: float | '1.' | 1.000000000000
+lexer/floats.t:4:1: float | '0.1' | 0.100000000000
+lexer/floats.t:5:1: float | '1e10' | 10000000000.000000000000
+lexer/floats.t:6:1: float | '1e+11' | 100000000000.000000000000
+lexer/floats.t:7:1: float | '1e-9' | 0.000000001000
+lexer/floats.t:8:1: float | '11.1e0' | 11.100000000000
+lexer/floats.t:9:1: float | '99.e5' | 9900000.000000000000
+lexer/floats.t:10:1: float | '.123' | 0.123000000000

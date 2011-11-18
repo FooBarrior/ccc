@@ -1,0 +1,8 @@
+lexer/hex_const.t:1:1: int | '0x0' | 0
+lexer/hex_const.t:2:1: int | '0x1' | 1
+lexer/hex_const.t:3:1: int | '0xa' | 10
+lexer/hex_const.t:4:1: int | '0xFF' | 255
+lexer/hex_const.t:5:1: int | '0x123' | 291
+lexer/hex_const.t:6:1: int | '0xDEADBEEF' | -559038737
+lexer/hex_const.t:7:1: int | '0x7FFFFFFF' | 2147483647
+lexer/hex_const.t:8:1: int | '0xFFFFFFFF' | -1
