@@ -35,21 +35,16 @@ char *buff = lxr_buff;
 	
 
 inline static void provokeLineFeed();
-static TokenPtr readWord();
 
 inline static TokenPtr initToken(TokenPtr, LXR_TokenType);
-static TokenPtr initStrToken(StrTokenPtr, LXR_TokenType, int);
+ static TokenPtr initStrToken(StrTokenPtr, LXR_TokenType, int);
 static TokenPtr initIntToken(IntTokenPtr, int);
 inline static TokenPtr initFloatToken(FloatTokenPtr, int);
 static TokenPtr newErrorToken();
 
 static TokenPtr readNum(char);
 static TokenPtr readId();
-static TokenPtr readPreproc();
-static TokenPtr readPlusMinus();
-static TokenPtr readStarDivPercent();
-static TokenPtr readLogicalOp();
-static TokenPtr readEq();
+//static TokenPtr readPreproc();
 
 static bool missComments();
 
