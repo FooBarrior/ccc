@@ -82,7 +82,9 @@ typedef enum LXR_TokenType{
 	/* ] */ LXRE_RIGHT_SQUARE_BRACKET,
 	/* ) */ LXRE_RIGHT_ROUND_BRACKET,
 
-	LXRE_FLOAT_CONST,
+	LXRE_PUNCTUATORS_COUNT,
+
+	LXRE_FLOAT_CONST = LXRE_PUNCTUATORS_COUNT,
 	LXRE_INT_CONST,
 	LXRE_IDENTIFIER,
 
@@ -90,9 +92,8 @@ typedef enum LXR_TokenType{
 	
 } LXR_TokenType;
 
-#define LXR_OP_TOKEN_COUNT 46
 #define LXR_IS_IN_OP_CLASS(t, OP_CLASS) \
-	(t >= LXRE_#OP_CLASS#_START && t <= LXRE_#OPCLASS#_END)
+	(t >= LXRE_##OP_CLASS##_START && t <= LXRE_##OP_CLASS##_END)
 
 typedef struct{
 	LXR_TokenType type;

@@ -349,7 +349,7 @@ void lxr_deinitializeLexer(){
 	fclose(lexer.f);
 }
 
-char* lxr_opTokenValues[LXR_OP_TOKEN_COUNT] = {
+char* lxr_opTokenValues[LXRE_PUNCTUATORS_COUNT] = {
 	"(", "[", "++", "--", "!", "~", "&", "+", "-", "*",
 	"|", "^", "/", "%", "&&", "||", "^^",
 	"<", ">", "<=", ">=", "<<", ">>", "==", ",",
