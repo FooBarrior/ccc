@@ -368,9 +368,7 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 	LXR_TokenPtr t = NULL;
 	while((t = lxr_nextToken()) != NULL) if(printDebug){
 		printf("%s:%d:%d: ", filename, t->line, t->col);
-		if(t->type < LXR_OP_TOKEN_COUNT)
-			printf("operator token | '%s'", lxr_opTokenValues[t->type]);
-		else switch(t->type){
+		switch(t->type){
 			case LXRE_IDENTIFIER:
 				printf("identifier | '%s'", LXR_GETBUF(t));
 				break;
@@ -382,6 +380,10 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 				break;
 			case LXRE_TOKEN_INVALID:
 				printf("Invalid token | %s", LXR_GETBUF(t));
+				break;
+			default:
+				assert(t->type < LXRE_PUNCTUATORS_COUNT);
+				printf("operator token | '%s'", lxr_opTokenValues[t->type]);
 		}
 		printf("\n");
 	}
