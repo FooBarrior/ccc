@@ -52,7 +52,8 @@ static TokenPtr throwErrorFmtExpect(char expect[], char but, int len){
 	char p[len+1];
 	memcpy(p, buff, len);
 	p[len] = 0;
-	LXR_THROW_ERROR_FMT("After %s: %s expected, but %c found", p, expect, but)
+	char butStr[2] = {but, 0};
+	LXR_THROW_ERROR_FMT("After %s: %s expected, but '%s'(%hhu) found", p, expect, isblank(but) ? butStr : "\\n", but)
 }
 
 void provokeLineFeed(){
