@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 		wait(0);
 		gettimeofday(&tv2, NULL);
 		timersub(&tv2, &tv1, &tvres);
-		if(fprintf(stderr, "%d.%d\n", tvres.tv_sec, tvres.tv_usec) < 0) printf("Cant output time!\n");
+		if(fprintf(stderr, "%d.%d\n", (int)tvres.tv_sec, (int)tvres.tv_usec) < 0) printf("Cant output time!\n");
 	}
 	return 0;
 }
