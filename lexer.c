@@ -241,6 +241,84 @@ bool missComments(){
 	return false;
 }
 
+static inline int errorChar(char c){
+	return -(int)(unsigned)(unsigned char)c;
+}
+
+static int readChar(int len){
+	char c = lexer.last;
+	if(c == '\\'){
+		char res = c = LXR_GETCHAR;
+		switch(c){
+			case '\'': case '?': case '\\': case '"':
+				res = c; c = LXR_GETCHAR; break;
+			case 'a': res = '\a'; c = LXR_GETCHAR; break;
+			case 'b': res = '\b'; c = LXR_GETCHAR; break;
+			case 'f': res = '\f'; c = LXR_GETCHAR; break;
+			case 'n': res = '\n'; c = LXR_GETCHAR; break;
+			case 'r': res = '\r'; c = LXR_GETCHAR; break;
+			case 't': res = '\t'; c = LXR_GETCHAR; break;
+			case 'v': res = '\v'; c = LXR_GETCHAR; break;
+			case 'x':
+				c = LXR_GETCHAR;
+				if(!isxdigit(c)) return errorChar('x');
+				res = xToInt(c);
+				c = LXR_GETCHAR;
+				if(isxdigit(c)){
+					res = res << 4 | (char)xToInt(c);
+					c = LXR_GETCHAR;
+				}
+				break;
+			default:
+				if(isOct(c)){
+					res = c - '0';
+					if(isOct(c = LXR_GETCHAR)){
+						res = (res << 3) | (c - '0');
+						if(isOct(c = LXR_GETCHAR)){
+							res = (res << 3) | (c - '0');
+							c = LXR_GETCHAR;
+						}
+					}
+				} else return errorChar(c);
+		}
+		buff[len++] = res;
+	} else LXR_FEED(c, len);
+
+	lexer.last = c;
+	return len;
+}
+
+static TokenPtr readString(char term){
+	int len = 0;
+	while(lexer.last != term && !isNewline(lexer.last) && lexer.last != EOF){
+		len = readChar(len);
+		if(len < 0){
+			char c = -len;
+			while(lexer.last != term && !isNewline(lexer.last) && lexer.last != EOF) lexer.last = LXR_GETCHAR;
+			LXR_THROW_ERROR_FMT("At position %d: unexpected character '%c'(%hhu) occured in escape sequence", lexer.col, c, c)
+		}
+	}
+	if(isNewline(lexer.last)){
+		LXR_UNGETC(lexer.last);
+		LXR_THROW_ERROR_FMT("Terminal character expected before end of line%c", 0)
+	}
+	if(lexer.last == EOF)
+		LXR_THROW_ERROR_FMT("Unexpected end of file%c", 0)
+	lexer.last = LXR_GETCHAR;
+	if(term == '\''){
+		if(len > 1)
+			LXR_THROW_ERROR_FMT("Character sequence is too long%c", 0)
+		if(len < 1)
+			LXR_THROW_ERROR_FMT("Character sequence is empty%c", 0)
+		IntTokenPtr t = NEW(IntToken);
+		t->value = buff[0];
+		buff[1] = buff[0];
+		buff[0] = buff[2] = term;
+		return initStrToken((StrTokenPtr)t, LXRE_INT_CONST, 3);
+	}
+	return initStrToken(NEW(StrToken), LXRE_STRING_CONST, len);
+}
+
 LXR_TokenPtr lxr_nextToken(){
 	char c = lexer.last;
 
@@ -292,6 +370,9 @@ LXR_TokenPtr lxr_nextToken(){
 #define LXR_OP(x, a) case x: t = a; break
 			
 		switch(c){
+				//case '#': LXR_THROW_ERROR_FMT("Unexpected macro%c", 0)
+				case '\'': case '\"':
+					return readString(c);
 				LXR_OP1('+', INCREASE, ADD, ASSIGN);
 				LXR_OP1('-', DECREASE, SUB, ASSIGN);
 				LXR_OP1('&', LOGICAL_AND, AND, ASSIGN);
@@ -380,6 +461,9 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 				break;
 			case LXRE_TOKEN_INVALID:
 				printf("Invalid token | %s", LXR_GETBUF(t));
+				break;
+			case LXRE_STRING_CONST:
+				printf("string constant | \"%s\"", LXR_GETBUF(t));
 				break;
 			default:
 				assert(t->type < LXRE_PUNCTUATORS_COUNT);

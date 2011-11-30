@@ -25,3 +25,7 @@ bool isSign(char c){
 int xToInt(char c){
 	return isdigit(c) ? c - '0' : tolower(c) + 10 - 'a';
 }
+
+bool isNewline(char c){
+	return c == '\r' || c == '\n' || c == '\v';
+}
