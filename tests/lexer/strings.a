@@ -25,3 +25,6 @@ lexer/strings.t:15:1: string constant | "0"
 lexer/strings.t:15:6: operator token | ';'
 lexer/strings.t:16:1: string constant | "z"
 lexer/strings.t:16:7: operator token | ';'
+lexer/strings.t:17:1: string constant | """
+lexer/strings.t:17:5: string constant | ""
+
