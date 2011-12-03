@@ -25,7 +25,7 @@ tests/spawntimer: tests/spawntimer.c
 	$(CC) -o$@ $<
 
 tests/%.run: %.c
-	$(CC) -DCCC_TEST -o$@ $< $(OBJS:.objs/$*.o=)
+	$(CC) -DCCC_TEST -o$@ $(OBJS:.objs/$*.o=) $<
     
 runtests: test_compile
 	cd tests && sh runtests.sh $(SRC:%.c=%)
