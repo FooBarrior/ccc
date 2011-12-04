@@ -15,7 +15,10 @@ typedef struct{
 typedef enum LXR_TokenType{
 	LXRE_POSTFIX_OPS_START,
 
-	/* (  */ LXRE_LEFT_ROUND_BRACKET = LXRE_POSTFIX_OPS_START,
+	/* -> */ LXRE_ARROW = LXRE_POSTFIX_OPS_START,
+	/* .  */ LXRE_DOT,
+
+	/* (  */ LXRE_LEFT_ROUND_BRACKET,
 	/* [  */ LXRE_LEFT_SQUARE_BRACKET,
 
 	LXRE_PREFIX_OPS_START,
@@ -30,32 +33,35 @@ typedef enum LXR_TokenType{
 
 	LXRE_BINARY_OPS_START,
 
-	/* &  */ LXRE_AND = LXRE_BINARY_OPS_START,
-	/* +  */ LXRE_ADD,
-	/* -  */ LXRE_SUB,
-	/* *  */ LXRE_MULT,
+	/* & 6 */ LXRE_AND = LXRE_BINARY_OPS_START,
+	/* + 2 */ LXRE_ADD,
+	/* - 2 */ LXRE_SUB,
+	/* * 1 */ LXRE_MULT,
 
 	LXRE_PREFIX_OPS_END = LXRE_MULT,
 
-	/* |  */ LXRE_OR,
-	/* ^  */ LXRE_XOR,
-	/* /  */ LXRE_DIV,
-	/* %  */ LXRE_MOD,
+	/* / 1 */ LXRE_DIV,
+	/* % 1 */ LXRE_MOD,
 
-	/* && */ LXRE_LOGICAL_AND,
-	/* || */ LXRE_LOGICAL_OR,
-	/* ^^ */ LXRE_LOGICAL_XOR,
+	/* << 3*/ LXRE_SHL,
+	/* >> 3*/ LXRE_SHR,
+	/* < 4 */ LXRE_LT,
+	/* > 4 */ LXRE_GT,
+	/* <= 4*/ LXRE_LT_EQUAL,
+	/* >= 4*/ LXRE_GT_EQUAL,
+	/* == 5*/ LXRE_EQ,
+	
+	/* ^ 7 */ LXRE_XOR,
+	/* | 8 */ LXRE_OR,
 
-	/* <  */ LXRE_LT,
-	/* >  */ LXRE_GT,
-	/* <= */ LXRE_LT_EQUAL,
-	/* >= */ LXRE_GT_EQUAL,
-	/* << */ LXRE_SHL,
-	/* >> */ LXRE_SHR,
-	/* == */ LXRE_EQ,
-	/* ,  */ LXRE_COMMA,
+	/* && 9*/ LXRE_LOGICAL_AND,
+	/* ^^ 10*/ LXRE_LOGICAL_XOR,
+	/* || 11*/ LXRE_LOGICAL_OR,
+	/* , 14 */ LXRE_COMMA,
 
-	/* =  */ LXRE_ASSIGN,
+	LXRE_ASSIGN_OPS_START,
+
+	/* =  13*/ LXRE_ASSIGN = LXRE_ASSIGN_OPS_START,
 	/* += */ LXRE_ADD_ASSIGN,
 	/* -= */ LXRE_SUB_ASSIGN,
 	/* /= */ LXRE_DIV_ASSIGN,
@@ -67,15 +73,14 @@ typedef enum LXR_TokenType{
 	/* <<= */ LXRE_SHL_ASSIGN,
 	/* >>= */ LXRE_SHR_ASSIGN,
 
-	/* -> */ LXRE_ARROW,
-	/* .  */ LXRE_DOT,
+	LXRE_ASSIGN_OPS_END = LXRE_SHR_ASSIGN,
 
-	LXRE_BINARY_OPS_END = LXRE_DOT,
+	LXRE_BINARY_OPS_END = LXRE_SHR_ASSIGN,
 
-	/* ... */ LXRE_ELLIPSIS,
-	/* ; */ LXRE_SEMICOLON,
 	/* ? */ LXRE_QUESTION,
 	/* : */ LXRE_COLON,
+	/* ... */ LXRE_ELLIPSIS,
+	/* ; */ LXRE_SEMICOLON,
 
 	/* { */ LXRE_LEFT_CURLY_BRACKET,
 	/* } */ LXRE_RIGHT_CURLY_BRACKET,
@@ -94,6 +99,8 @@ typedef enum LXR_TokenType{
 	LXRE_TERMINALS_END = LXRE_STRING_CONST,
 
 	LXRE_TOKEN_INVALID,
+
+	LXRE_TYPES_COUNT,
 	
 } LXR_TokenType;
 
