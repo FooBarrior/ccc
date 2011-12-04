@@ -68,11 +68,16 @@ static NodePtr parseExpr(PRSR_PriorityLevel priority){
 		return processErrorToken(t, "unexpected end of file");
 
 	// TODO read prefix ops here
-
-	if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
+	NodePtr ln = NULL;
+	if(t->type == LXRE_LEFT_ROUND_BRACKET){
+		ln = parseExpr(0);
+		if(token->type != LXRE_RIGHT_ROUND_BRACKET)
+			return processErrorToken(t, "closing round bracket expected");
+		token = lxr_nextToken();
+	}
+	else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
 		return processErrorToken(t, "idnetifier or constant expected");
-	
-	NodePtr ln = initTermNode(NEW(TermNode), t);
+	else ln = initTermNode(NEW(TermNode), t);
 
 	// TODO read postfix ops here
 
