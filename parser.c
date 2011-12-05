@@ -96,68 +96,6 @@ static NodePtr parseExpr(PRSR_PriorityLevel priority){
 	}
 	return ln;
 
-
-
-/*
-
-	static LXR_TokenPtr lastToken = NULL;
-	PRSR_PriorityLevel prevPriority = priority, lastPriority = priority;
-	NodePtr root = NULL;
-	NodePtr *readingNode = &root;
-	while(1){
-		LXR_TokenPtr t = lastToken == NULL ? lxr_nextToken() : lastToken;
-		if(t == NULL) return root;
-
-		//read prefix ops here
-
-		if(t->type == LXRE_LEFT_ROUND_BRACKET){
-			NodePtr ln = parseExpr(100);
-			*readingNode = ln;
-			if(lastToken->type != LXRE_RIGHT_ROUND_BRACKET)
-				return processErrorToken(t, "closing round bracket expected");
-			lastToken = lxr_nextToken();
-		}
-
-		else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
-			return processErrorToken(t, "idnetifier or constant expected");
-
-		else{
-			if(lastPriority <= prevPriority){
-				*readingNode = (NodePtr)initTermNode(NEW(TermNode), t);
-				lastToken = lxr_nextToken();
-				prevPriority = lastPriority;
-			} else if(lastPriority > prevPriority){
-				NodePtr ln = parseExpr(lastPriority);
-				*readingNode = ln;
-
-			} else{
-				assert(0); // wrong? cause we should already return
-			}
-		}
-
-		//read postfix ops here
-
-		t = lastToken;
-		if(t == NULL) return root;
-
-		if(LXR_IS_IN_OP_CLASS(t, TERMINALS) || (!LXR_IS_IN_OP_CLASS(t, BINARY_OPS) && LXR_IS_IN_OP_CLASS(t, PREFIX_OPS)))
-			return processErrorToken(t, "unexpected token");
-
-		if(!LXR_IS_IN_OP_CLASS(t, BINARY_OPS)){
-			return root;
-		}
-		prevPriority = lastPriority;
-		lastPriority = priorities[lastToken->type];
-		if(lastPriority < prevPriority){
-			return root;
-		}
-
-		BinOpNodePtr n = initBinOpNode(NEW(BinOpNode), lastToken, root, NULL);
-		root = (NodePtr)n;
-		readingNode = &n->right;
-		lastToken = NULL;
-	}
-*/
 }
 
 NodePtr prsr_parse(){
