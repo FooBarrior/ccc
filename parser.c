@@ -89,6 +89,7 @@ static NodePtr parseExpr(PRSR_PriorityLevel priority){
 	while(priority < pl){
 		t = token;
 		token = lxr_nextToken();
+		if(LXR_IS_IN_OP_CLASS(t, ASSIGN_OPS)) pl--;
 		ln = (NodePtr)initBinOpNode(NEW(BinOpNode), t, ln, parseExpr(pl));
 		if(token == NULL) break;
 		pl = priorities[token->type];
