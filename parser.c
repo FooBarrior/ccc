@@ -6,10 +6,12 @@ typedef enum{
 	PRSRE_TERMINAL_NODE,
 	PRSRE_BINARY_OP_NODE,
 } PRSR_NodeType;
+
 typedef struct{
 	PRSR_NodeType type;
 	LXR_TokenPtr t;
 } PRSR_Node, *PRSR_NodePtr;
+
 typedef struct PRSR_BinOpNode{
 	PRSR_Node parent;
 	PRSR_NodePtr left,right;
@@ -68,6 +70,7 @@ static NodePtr parseExpr(PRSR_PriorityLevel priority){
 		return processErrorToken(t, "unexpected end of file");
 
 	// TODO read prefix ops here
+	
 	NodePtr ln = NULL;
 	if(t->type == LXRE_LEFT_ROUND_BRACKET){
 		ln = parseExpr(0);
