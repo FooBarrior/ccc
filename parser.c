@@ -79,7 +79,7 @@ static NodePtr parseExpr(PRSR_PriorityLevel priority){
 		token = lxr_nextToken();
 	}
 	else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
-		return processErrorToken(t, "idnetifier or constant expected");
+		return processErrorToken(t, "identifier or constant expected");
 	else ln = initTermNode(NEW(TermNode), t);
 
 	// TODO read postfix ops here
