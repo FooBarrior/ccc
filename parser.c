@@ -86,16 +86,16 @@ NodePtr parseExpr(PRSR_PriorityLevel priority){
 
 	// TODO read prefix ops here
 	
-	NodePtr ln = NULL;
+	NodePtr root = NULL;
 	if(t->type == LXRE_LEFT_ROUND_BRACKET){
-		ln = parseExpr(0);
+		root = parseExpr(0);
 		if(token->type != LXRE_RIGHT_ROUND_BRACKET)
 			return processErrorToken(t, "closing round bracket expected");
 		token = nextToken();
 	}
 	else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
 		return processErrorToken(t, "identifier or constant expected");
-	else ln = initTermNode(NEW(TermNode), t);
+	else root = initTermNode(NEW(TermNode), t);
 
 	// TODO read postfix ops here
 
@@ -104,11 +104,11 @@ NodePtr parseExpr(PRSR_PriorityLevel priority){
 		t = token;
 		token = nextToken();
 		if(LXR_IS_IN_OP_CLASS(t, ASSIGN_OPS)) pl--;
-		ln = (NodePtr)initBinOpNode(NEW(BinOpNode), t, ln, parseExpr(pl));
+		root = (NodePtr)initBinOpNode(NEW(BinOpNode), t, root, parseExpr(pl));
 		
 		pl = priorities[token->type];
 	}
-	return ln;
+	return root;
 
 }
 
