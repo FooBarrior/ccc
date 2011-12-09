@@ -210,7 +210,20 @@ TokenPtr readId(){
 	char c = lexer.last;
 	int len = 0;
 	LXR_FEED_WHILE(c, isId(c), len);
+	buff[len] = 0;
 	lexer.last = c;
+
+	static char *kws[LXR_KEYWORDS_COUNT] = {
+		"auto", "break", "case", "char", "const", "continue",
+		"default", "do", "double", "else", "enum", "extern",
+		"float", "for", "goto", "if", "inline", "int", "long",
+		"register", "restrict", "return", "short", "signed",
+		"sizeof", "static", "struct", "switch", "typedef",
+		"union", "unsigned", "void", "volatile", "while",
+	};
+	for(int i = 0; i < LXR_KEYWORDS_COUNT; i++)
+		if(!strcmp(buff, kws[i])) 
+			return initToken(NEW(Token), i + LXRE_KEYWORDS_START);
 	return initStrToken(NEW(StrToken), LXRE_IDENTIFIER, len);
 }
 
@@ -433,7 +446,7 @@ void lxr_deinitializeLexer(){
 	fclose(lexer.f);
 }
 
-char* lxr_opTokenValues[LXRE_PUNCTUATORS_COUNT] = {
+char* lxr_opTokenValues[LXRE_VALID_TOKENS_COUNT] = {
 	"->", ".", "(", "[", "++", "--", "!", "~", "&", "+", "-", "*",
 	"/", "%", "<<", ">>", "<", ">", "<=", ">=", "==",
 	"^", "|", "&&", "^^", "||",
@@ -442,6 +455,13 @@ char* lxr_opTokenValues[LXRE_PUNCTUATORS_COUNT] = {
 	"<<=", ">>=",
 	"?", ":", "...", ";",
 	"{", "}", "]", ")",
+	0, 0, 0, 0,
+	"auto", "break", "case", "char", "const", "continue",
+	"default", "do", "double", "else", "enum", "extern",
+	"float", "for", "goto", "if", "inline", "int", "long",
+	"register", "restrict", "return", "short", "signed",
+	"sizeof", "static", "struct", "switch", "typedef",
+	"union", "unsigned", "void", "volatile", "while",
 };
 
 int lxr_runtest(char *filename, FILE *f, bool printDebug){
@@ -451,7 +471,7 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 	}
 	lxr_initLexer(f);
 	LXR_TokenPtr t = NULL;
-	while((t = lxr_nextToken()) != NULL) if(printDebug){
+	while((t = lxr_nextToken()) != &lxr_EOF) if(printDebug){
 		printf("%s:%d:%d: ", filename, t->line, t->col);
 		switch(t->type){
 			case LXRE_IDENTIFIER:
@@ -470,8 +490,9 @@ int lxr_runtest(char *filename, FILE *f, bool printDebug){
 				printf("string constant | \"%s\"", LXR_GETBUF(t));
 				break;
 			default:
-				assert(t->type < LXRE_PUNCTUATORS_COUNT);
-				printf("operator token | '%s'", lxr_opTokenValues[t->type]);
+				assert(t->type < LXRE_VALID_TOKENS_COUNT);
+				char *typestr = LXR_IS_IN_OP_CLASS(t, KEYWORDS) ? "keyword" : "operator";
+				printf("%s token | '%s'", typestr, lxr_opTokenValues[t->type]);
 		}
 		printf("\n");
 	}
