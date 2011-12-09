@@ -40,13 +40,6 @@ static NodePtr parseExpr(PRSR_PriorityLevel priority);
 
 extern NodePtr prsr_parse();
 
-NodePtr processErrorToken(LXR_TokenPtr t, const char *info){
-	if(t == NULL) strcpy(lastError, info);
-	else sprintf(lastError, "%d:%d: %s", t->line, t->col, info);
-	return NULL;
-}
-
-
 PRSR_PriorityLevel priorities[LXRE_TYPES_COUNT] = {
 	0,0,0,0,0,0,0,0, // unary
 	10,14,14,15, // & + - *
@@ -55,6 +48,12 @@ PRSR_PriorityLevel priorities[LXRE_TYPES_COUNT] = {
 	9,8,7,6,5,2, // ^ | && ^^ || ,
 	3,3,3,3,3,3,3,3,3,3,3,4, 0, // = += -= /= *= %= |= ^= <<= >>= ?   others are zero
 };
+
+NodePtr processErrorToken(LXR_TokenPtr t, const char *info){
+	if(t == NULL) strcpy(lastError, info);
+	else sprintf(lastError, "%d:%d: %s", t->line, t->col, info);
+	return NULL;
+}
 
 TermNodePtr initTermNode(TermNodePtr n, LXR_TokenPtr t){
 	n->type = PRSRE_TERMINAL_NODE;
@@ -113,7 +112,7 @@ NodePtr parseExpr(PRSR_PriorityLevel priority){
 }
 
 NodePtr prsr_parse(){
-	token = lxr_nextToken();
+	token = nextToken();
 	return parseExpr(0);
 }
 
