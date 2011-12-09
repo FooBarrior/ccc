@@ -19,6 +19,8 @@ typedef LXR_FloatTokenPtr FloatTokenPtr;
 Lexer lexer;
 char lxr_buff[LXR_MAX_STR_WIDTH];
 char *buff = lxr_buff;
+Token lxr_EOF = {LXRE_EOF, 0, 0};
+TokenPtr lxr_lastToken;
 
 #define LXR_GETCHAR (lexer.col++, getc(lexer.f))
 #define LXR_UNGETC(c) (ungetc(c, lexer.f), lexer.col--)
@@ -65,6 +67,7 @@ TokenPtr initToken(TokenPtr tok, LXR_TokenType type){
 	tok->type = type;
 	tok->line = lexer.str;
 	tok->col = lexer.start;
+	lxr_lastToken = tok;
 	return tok;
 }
 
@@ -329,7 +332,7 @@ LXR_TokenPtr lxr_nextToken(){
 			if(!isblank(c)) provokeLineFeed();
 			c = LXR_GETCHAR;
 		}
-		if(c == EOF) return NULL;
+		if(c == EOF) return initToken(&lxr_EOF, LXRE_EOF);
 		lexer.last = c;
 	} while(missComments());
 
