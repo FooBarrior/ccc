@@ -5,6 +5,13 @@
 typedef enum{
 	PRSRE_TERMINAL_NODE,
 	PRSRE_BINARY_OP_NODE,
+	PRSRE_UNARY_PREFIX_OP_NODE,
+	PRSRE_UNARY_POSTFIX_OP_NODE,
+	PRSRE_SUBSCRIPT_NODE,
+	PRSRE_FUNC_CALL_NODE,
+	PRSRE_TYPECAST_NODE,
+
+	PRSRE_ERROR_NODE,
 } PRSR_NodeType;
 
 typedef struct{
@@ -93,7 +100,7 @@ NodePtr parseExpr(PRSR_PriorityLevel priority){
 		token = nextToken();
 	}
 	else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
-		return processErrorToken(t, "identifier or constant expected");
+		return processErrorToken(t, "identifier, constant, or opening round bracket expected");
 	else root = initTermNode(NEW(TermNode), t);
 
 	// TODO read postfix ops here
