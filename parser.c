@@ -19,14 +19,34 @@ typedef struct{
 	LXR_TokenPtr t;
 } PRSR_Node, *PRSR_NodePtr;
 
+typedef struct PRSR_UnaryOpNode{
+	PRSR_Node parent;
+	PRSR_NodePtr operand;
+} PRSR_UnaryOpNode, PRSR_UnaryOpNodePtr;
+
 typedef struct PRSR_BinOpNode{
 	PRSR_Node parent;
 	PRSR_NodePtr left,right;
 } PRSR_BinOpNode, *PRSR_BinOpNodePtr;
+
+typedef struct PRSR_ListItem{
+	PRSR_NodePtr node;
+	struct PRSR_ListItem *next;
+} PRSR_ListItem, *PRSR_ListItemPtr;
+
+typedef struct{
+	PRSR_Node parent;
+	int count;
+	PRSR_ListItemPtr list;
+} PRSR_NodeList;
+
+
+
 typedef PRSR_Node PRSR_TermNode, *PRSR_TermNodePtr;
 
 typedef PRSR_TermNode TermNode;
 typedef PRSR_TermNodePtr TermNodePtr;
+typedef PRSR_UnaryOpNode UnaryOpNode, *UnaryOpNodePtr;
 typedef PRSR_BinOpNode BinOpNode, *BinOpNodePtr;
 typedef PRSR_NodePtr NodePtr;
 typedef PRSR_Node Node;
@@ -40,7 +60,8 @@ char lastError[PRSR_MAX_BUF_SIZE];
 static NodePtr processErrorToken(LXR_TokenPtr t, const char *info);
 
 static inline TermNodePtr initTermNode(TermNodePtr n, LXR_TokenPtr t);
-static inline BinOpNodePtr initBinOpNode(PRSR_BinOpNodePtr n, LXR_TokenPtr t, NodePtr l, NodePtr r);
+static inline BinOpNodePtr initBinOpNode(BinOpNodePtr n, LXR_TokenPtr t, NodePtr l, NodePtr r);
+static inline UnaryOpNodePtr initUnaryOpNode(UnaryOpNodePtr n, LXR_TokenPtr t, NodePtr operand, PRSR_NodeType nt);
 
 static inline LXR_TokenPtr nextToken();
 static NodePtr parseExpr(PRSR_PriorityLevel priority);
@@ -67,7 +88,15 @@ TermNodePtr initTermNode(TermNodePtr n, LXR_TokenPtr t){
 	n->t = t;
 	return n;
 }
-BinOpNodePtr initBinOpNode(PRSR_BinOpNodePtr n, LXR_TokenPtr t, NodePtr l, NodePtr r){
+
+UnaryOpNodePtr initUnaryOpNode(UnaryOpNodePtr n, LXR_TokenPtr t, NodePtr operand, PRSR_NodeType nt){
+	n->parent.type = nt;
+	n->parent.t = t;
+	n->operand = operand;
+	return n;
+}
+
+BinOpNodePtr initBinOpNode(BinOpNodePtr n, LXR_TokenPtr t, NodePtr l, NodePtr r){
 	n->parent.type = PRSRE_BINARY_OP_NODE;
 	n->parent.t = t;
 	n->left = l;
@@ -86,24 +115,43 @@ LXR_TokenPtr nextToken(){
 NodePtr parseExpr(PRSR_PriorityLevel priority){
 	LXR_TokenPtr t = token;
 	token = nextToken();
-
 	if(t->type == LXRE_EOF)
 		return processErrorToken(t, "unexpected end of file");
 
-	// TODO read prefix ops here
+	// read prefix ops here
+	UnaryOpNodePtr first = NULL, last = NULL;
+	while(LXR_IS_IN_OP_CLASS(t, PREFIX_OPS)){
+		UnaryOpNodePtr n = initUnaryOpNode(NEW(UnaryOpNode), t, NULL, PRSRE_UNARY_PREFIX_OP_NODE);
+		if(last != NULL)
+			last->operand = &n->parent;
+		last = n;
+		if(NULL == first)
+			first = n;
+		t = token;
+		token = nextToken();
+	}
 	
 	NodePtr root = NULL;
 	if(t->type == LXRE_LEFT_ROUND_BRACKET){
+
 		root = parseExpr(0);
 		if(token->type != LXRE_RIGHT_ROUND_BRACKET)
 			return processErrorToken(t, "closing round bracket expected");
 		token = nextToken();
-	}
-	else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS))
+
+	} else if(!LXR_IS_IN_OP_CLASS(t, TERMINALS)){
 		return processErrorToken(t, "identifier, constant, or opening round bracket expected");
-	else root = initTermNode(NEW(TermNode), t);
+	} else{
+		root = initTermNode(NEW(TermNode), t);
+	}
+
+	if(last != NULL){
+		last.operand = root;
+		root = first;
+	}
 
 	// TODO read postfix ops here
+	
 
 	PRSR_PriorityLevel pl = priorities[token->type];
 	while(priority < pl){
