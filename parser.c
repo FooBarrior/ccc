@@ -126,7 +126,7 @@ NodePtr prsr_parse(){
 #ifdef CCC_TEST
 extern char* lxr_opTokenValues[LXRE_PUNCTUATORS_COUNT];
 void printToken(LXR_TokenPtr t){
-	char *s[] = {"identifier", "int", "float", "string", "invalid token"};
+	char *s[] = {"float", "int", "identifier", "string", "invalid token"};
 	if(LXR_IS_IN_OP_CLASS(t, TERMINALS) || t->type == LXRE_TOKEN_INVALID)
 		printf("%s ('%s')", s[t->type - LXRE_TERMINALS_START], LXR_GETBUF(t));
 	else{
